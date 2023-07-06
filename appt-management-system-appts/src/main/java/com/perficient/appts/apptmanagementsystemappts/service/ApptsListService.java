@@ -5,17 +5,18 @@ import com.perficient.appts.apptmanagementsystemappts.repository.ApptsRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class ApptsGetService {
+import java.util.List;
 
+@Service
+public class ApptsListService {
     private ApptsRepository repository;
 
     @Autowired
-    ApptsGetService(ApptsRepository repository) {
+    ApptsListService(ApptsRepository repository) {
         this.repository = repository;
     }
 
-    public ApptsEntity getApptById(Long id) {
-        return repository.getById(id);
+    public List<ApptsEntity> getApptsList() {
+        return repository.findAll();
     }
 }
