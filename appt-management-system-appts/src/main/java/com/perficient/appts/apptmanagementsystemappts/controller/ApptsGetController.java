@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping(value = "api/v1/")
+@RequestMapping(value = "api/v1/appts/")
 @RestController
 public class ApptsGetController {
 
@@ -21,7 +21,7 @@ public class ApptsGetController {
         this.service = service;
     }
 
-    @RequestMapping(value="/appts/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/{id}", method = RequestMethod.GET)
     public ResponseEntity<ApptsEntity> getApptById(@PathVariable("id") Long id){
         ApptsEntity entity = service.getApptById(id);
         if(entity!=null){

@@ -11,7 +11,7 @@ public class ApptsCreateService {
     private ApptsRepository repository;
 
     @Autowired
-    ApptsCreateService(ApptsRepository repository) {
+    public ApptsCreateService(ApptsRepository repository) {
         this.repository = repository;
     }
 
@@ -20,7 +20,7 @@ public class ApptsCreateService {
         return repository.save(apptsEntity);
     }
 
-    private ApptsEntity convertToApptsEntity(Appts appt) {
+    public ApptsEntity convertToApptsEntity(Appts appt) {
         ApptsEntity apptEntity = new ApptsEntity();
         apptEntity.setApptName(appt.getApptName());
         apptEntity.setApptType(appt.getApptType());
