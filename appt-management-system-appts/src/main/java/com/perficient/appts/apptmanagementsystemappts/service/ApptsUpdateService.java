@@ -29,6 +29,9 @@ public class ApptsUpdateService {
     }
 
     private void updateFields(ApptsEntity entity, Appts appt) {
+        if (appt.getUserId() != null) {
+            entity.setUserId(appt.getUserId());
+        }
         if (appt.getApptName() != null) {
             entity.setApptName(appt.getApptName());
         }

@@ -10,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Appts {
     private Long id;
+    private Long userId;
     private String apptName;
     private String apptType;
     private String description;

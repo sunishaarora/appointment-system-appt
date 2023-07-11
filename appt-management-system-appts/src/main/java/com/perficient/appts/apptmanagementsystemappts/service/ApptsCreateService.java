@@ -22,6 +22,7 @@ public class ApptsCreateService {
 
     public ApptsEntity convertToApptsEntity(Appts appt) {
         ApptsEntity apptEntity = new ApptsEntity();
+        apptEntity.setUserId(appt.getUserId());
         apptEntity.setApptName(appt.getApptName());
         apptEntity.setApptType(appt.getApptType());
         apptEntity.setDescription(appt.getDescription());
