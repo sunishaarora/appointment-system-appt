@@ -34,14 +34,10 @@ class ApptsGetServiceTest {
         Long id = 1L;
         ApptsEntity appt = new ApptsEntity();
         appt.setId(id);
-
         when(repository.findById(id)).thenReturn(Optional.of(appt));
-
         ApptsEntity result = service.getApptById(id);
-
         assertNotNull(result);
         assertEquals(appt, result);
-
         verify(repository, times(1)).findById(id);
         verifyNoMoreInteractions(repository);
     }
@@ -49,13 +45,10 @@ class ApptsGetServiceTest {
     @Test
     public void testGetAppt_NotFound() {
         Long id = 1L;
-
         when(repository.findById(id)).thenReturn(Optional.empty());
-
         assertThrows(EntityNotFoundException.class, () -> {
             service.getApptById(id);
         });
-
         verify(repository, times(1)).findById(id);
         verifyNoMoreInteractions(repository);
     }
