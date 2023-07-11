@@ -22,6 +22,7 @@ public class ApptsCreateController {
     @RequestMapping(value="/add", method = RequestMethod.POST)
     public ResponseEntity<?> createAppt(@RequestBody Appts appts){
         try {
+            if(appts.getUserId()==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User ID cannot be null");
             ApptsEntity newAppts = service.createAppt(appts);
             return ResponseEntity.ok(newAppts);
         } catch (Exception e) {
