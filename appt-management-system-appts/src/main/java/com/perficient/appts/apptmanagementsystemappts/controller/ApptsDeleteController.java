@@ -27,7 +27,7 @@ public class ApptsDeleteController {
             if(service.deleteApptById(id)){
                 return ResponseEntity.ok().build();
             } else {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The Appointment ID does not exist.");
             }
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete.");
