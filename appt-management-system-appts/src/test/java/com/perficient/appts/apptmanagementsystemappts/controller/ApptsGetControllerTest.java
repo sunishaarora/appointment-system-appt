@@ -37,8 +37,6 @@ class ApptsGetControllerTest {
 
         ResponseEntity<?> response = controller.getApptById(id);
 
-        verify(service).getApptById(id);
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(apptsEntity, response.getBody());
 
@@ -49,8 +47,7 @@ class ApptsGetControllerTest {
     @Test
     public void testGetAppt_NotFound() {
         Long id = 1L;
-
-        when(service.getApptById(id)).thenThrow(new EntityNotFoundException("Appointment not found with ID: " + id));
+        when(service.getApptById(id)).thenReturn(null);
 
         ResponseEntity<?> response = controller.getApptById(id);
 
@@ -60,5 +57,20 @@ class ApptsGetControllerTest {
         verify(service, times(1)).getApptById(id);
         verifyNoMoreInteractions(service);
     }
+
+    @Test
+    public void testGetAppt_Exception() {
+        Long id = 1L;
+        when(service.getApptById(id)).thenThrow(new RuntimeException("Failed to retrieve appointment"));
+
+        ResponseEntity<?> response = controller.getApptById(id);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("Could not retrieve appointment: Failed to retrieve appointment", response.getBody());
+
+        verify(service, times(1)).getApptById(id);
+        verifyNoMoreInteractions(service);
+    }
+
 
 }
