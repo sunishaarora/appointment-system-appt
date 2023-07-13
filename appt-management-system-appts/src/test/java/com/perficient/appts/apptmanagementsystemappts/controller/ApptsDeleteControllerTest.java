@@ -1,6 +1,5 @@
 package com.perficient.appts.apptmanagementsystemappts.controller;
 
-import com.perficient.appts.apptmanagementsystemappts.entity.ApptsEntity;
 import com.perficient.appts.apptmanagementsystemappts.service.ApptsDeleteService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
