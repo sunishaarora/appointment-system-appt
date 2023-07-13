@@ -36,4 +36,19 @@ class ApptsUpdateControllerTest {
         assertEquals(newEntity, response.getBody());
         verify(service, times(1)).updateAppt(eq(id), any(Appts.class));
     }
+
+    @Test
+    public void testUpdateAppt_Error() {
+        Long id = 1L;
+        Appts newAppt = new Appts();
+
+        when(service.updateAppt(eq(id), any(Appts.class))).thenThrow(IllegalArgumentException.class);
+
+        ResponseEntity<?> response = controller.updateAppt(id, newAppt);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("Appointment ID does not exist", response.getBody());
+        verify(service, times(1)).updateAppt(eq(id), any(Appts.class));
+    }
+
 }

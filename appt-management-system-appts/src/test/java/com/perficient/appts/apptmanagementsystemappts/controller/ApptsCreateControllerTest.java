@@ -48,4 +48,37 @@ class ApptsCreateControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(apptsEntity, response.getBody());
     }
+
+    @Test
+    public void testCreateAppt_Error() {
+        Appts appts = new Appts();
+        appts.setApptName("Appointment 10");
+        appts.setUserId(1L);
+        appts.setApptType("Type A");
+        appts.setDescription("This is the description of the appointment");
+
+        when(service.createAppt(appts)).thenThrow(new RuntimeException("Failed to create appointment."));
+
+        ResponseEntity<?> response = controller.createAppt(appts);
+
+        verify(service).createAppt(appts);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("Failed to create appointment.", response.getBody());
+    }
+
+    @Test
+    public void testCreateAppt_UserId() {
+        Appts appts = new Appts();
+        appts.setApptName("Appointment 10");
+        appts.setApptType("Type A");
+        appts.setDescription("This is the description of the appointment");
+
+        ResponseEntity<?> response = controller.createAppt(appts);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("User ID cannot be null", response.getBody());
+    }
+
+
 }

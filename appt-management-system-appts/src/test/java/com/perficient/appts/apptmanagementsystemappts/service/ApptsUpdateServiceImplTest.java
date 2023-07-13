@@ -1,6 +1,7 @@
 package com.perficient.appts.apptmanagementsystemappts.service;
 
 import com.perficient.appts.apptmanagementsystemappts.entity.ApptsEntity;
+import com.perficient.appts.apptmanagementsystemappts.model.Appts;
 import com.perficient.appts.apptmanagementsystemappts.repository.ApptsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,13 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class ApptsDeleteServiceTest {
-
+public class ApptsUpdateServiceImplTest {
     @Mock
     private ApptsRepository repository;
 
     @InjectMocks
-    private ApptsDeleteService service;
+    private ApptsUpdateServiceImpl service;
 
     @BeforeEach
     public void setUp() {
@@ -29,17 +29,22 @@ class ApptsDeleteServiceTest {
     }
 
     @Test
-    public void testDeleteAppt() {
+    public void testUpdateAppt() {
         Long id = 1L;
         ApptsEntity apptEntity = new ApptsEntity();
         apptEntity.setId(id);
         when(repository.findById(id)).thenReturn(Optional.of(apptEntity));
-        doNothing().when(repository).deleteById(id);
-        boolean result = service.deleteApptById(id);
-        verify(repository).findById(id);
-        verify(repository).deleteById(id);
-        assertTrue(result);
-    }
+        when(repository.save(apptEntity)).thenReturn(apptEntity);
 
+        Appts newAppt = new Appts();
+        newAppt.setUserId(6L);
+
+        ApptsEntity result = service.updateAppt(id, newAppt);
+        verify(repository).findById(id);
+        verify(repository).save(apptEntity);
+
+        assertEquals(apptEntity, result);
+        assertEquals(newAppt.getUserId(), result.getUserId());
+    }
 
 }

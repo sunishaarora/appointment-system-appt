@@ -16,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class ApptsGetServiceTest {
+class ApptsGetServiceImplTest {
 
     @Mock
     private ApptsRepository repository;
 
     @InjectMocks
-    private ApptsGetService service;
+    private ApptsGetServiceImpl service;
 
     @BeforeEach
     public void setup() {

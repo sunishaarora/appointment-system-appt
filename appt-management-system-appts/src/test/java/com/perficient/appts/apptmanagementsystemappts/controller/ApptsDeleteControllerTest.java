@@ -33,6 +33,44 @@ class ApptsDeleteControllerTest {
         verify(service, times(1)).deleteApptById(eq(id));
     }
 
+    @Test
+    public void testDeleteAppt_Found() {
+        Long id = 1L;
 
+        when(service.deleteApptById(eq(id))).thenReturn(true);
+
+        ResponseEntity<?> response = controller.deleteApptById(id);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Appointment deleted", response.getBody());
+        verify(service, times(1)).deleteApptById(eq(id));
+    }
+
+    @Test
+    public void testDeleteAppt_Error() {
+        Long id = 1L;
+
+        when(service.deleteApptById(id)).thenReturn(false);
+
+        ResponseEntity<?> response = controller.deleteApptById(id);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("The Appointment ID does not exist.", response.getBody());
+        verify(service, times(1)).deleteApptById(eq(id));
+    }
+
+    @Test
+    public void testDeleteAppt_Exception() {
+        Long id = 1L;
+        when(service.deleteApptById(id)).thenThrow(new RuntimeException("Failed to delete appointment"));
+
+        ResponseEntity<?> response = controller.deleteApptById(id);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("Failed to delete.", response.getBody());
+
+        verify(service, times(1)).deleteApptById(id);
+        verifyNoMoreInteractions(service);
+    }
 
 }
