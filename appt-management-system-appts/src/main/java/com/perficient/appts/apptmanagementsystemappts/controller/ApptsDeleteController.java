@@ -1,8 +1,6 @@
 package com.perficient.appts.apptmanagementsystemappts.controller;
 
-import com.perficient.appts.apptmanagementsystemappts.entity.ApptsEntity;
 import com.perficient.appts.apptmanagementsystemappts.service.ApptsDeleteService;
-import com.perficient.appts.apptmanagementsystemappts.service.ApptsGetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +23,7 @@ public class ApptsDeleteController {
     public ResponseEntity<?> deleteApptById(@PathVariable("id") Long id){
         try{
             if(service.deleteApptById(id)){
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok().body("Appointment deleted");
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The Appointment ID does not exist.");
             }
