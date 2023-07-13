@@ -34,6 +34,7 @@ class ApptsCreateControllerTest {
     public void testCreateAppt() {
         Appts appts = new Appts();
         appts.setApptName("Appointment 10");
+        appts.setUserId(1L);
         appts.setApptType("Type A");
         appts.setDescription("This is the description of the appointment");
 
