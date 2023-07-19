@@ -45,7 +45,7 @@ class ApptsCreateControllerTest {
 
         verify(service).createAppt(appts);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(apptsEntity, response.getBody());
     }
 
